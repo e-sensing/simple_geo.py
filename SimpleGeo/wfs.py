@@ -85,6 +85,7 @@ class WFS:
     def _post(self, uri, data=None):
         if self.__debug:
             print("POST", uri)
+            print("Body: ", data)
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         r = requests.post(uri, data=data, headers=headers, auth=self.__auth)
 
@@ -248,8 +249,9 @@ class WFS:
                 body += "&{}={}".format(key, value)
         doc = self._post("{}/{}&request=GetFeature".format(self.host, self.base_path), data=body[1:])
 
-        if 'exception' in doc:
-            raise Exception(doc["exception"])
+
+        #if 'exception' in doc:
+        #    raise Exception(doc["exception"])
 
         js = json.loads(doc)
 
